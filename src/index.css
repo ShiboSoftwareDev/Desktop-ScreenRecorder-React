@@ -1,3 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Bacasime+Antique&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;700&family=Croissant+One&family=Inknut+Antiqua:wght@400;700&family=Inter:wght@400;600;700;900&family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Karla:wght@400;700&family=Lora:wght@400;700&family=Merriweather:wght@400;700&family=Sofia&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Inknut Antiqua", "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+button {
+  font-family: -apple-system, BlinkMacSystemFont, "Inknut Antiqua", "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  -webkit-app-region: no-drag;
+}
+
+video {
+  -webkit-app-region: no-drag;
+  height: 60%;
+}
+body {
+  -webkit-app-region: drag;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  -webkit-app-region: no-drag;
+}
