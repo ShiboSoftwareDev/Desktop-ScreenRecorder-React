@@ -1,10 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { contextBridge, ipcRenderer } = require("electron/renderer");
+import { DesktopCapturerSource, contextBridge, ipcRenderer } from "electron";
 
 contextBridge.exposeInMainWorld("electronAPI", {
   videoSelectBtnClicked: () => ipcRenderer.send("videoSelectBtn-clicked"),
-  sourceSelected: (callback) =>
-    ipcRenderer.on("source-selected", (_event, value) => callback(value)),
-  sendStream: (something) => ipcRenderer.send("send-stream", something),
+  sourceSelected: (callback: (value: DesktopCapturerSource) => void) =>
+    ipcRenderer.on(
+      "source-selected",
+      (_event: object, value: DesktopCapturerSource) => callback(value)
+    ),
+  sendStream: (data: ArrayBuffer) => ipcRenderer.send("send-stream", data),
   clearListeners: () => ipcRenderer.removeAllListeners("source-selected"),
 });

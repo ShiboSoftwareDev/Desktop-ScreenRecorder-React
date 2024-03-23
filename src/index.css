@@ -3,7 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* 
 * {
   font-family: -apple-system, BlinkMacSystemFont, "Inknut Antiqua", "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
@@ -28,5 +28,5 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-}
+  justify-content: center; */
+/* } */

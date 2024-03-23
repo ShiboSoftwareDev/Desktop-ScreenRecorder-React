@@ -1,3 +1,4 @@
+import { DesktopCapturerSource } from "electron";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 export default function Main() {
@@ -6,18 +7,18 @@ export default function Main() {
   const [startBtnState, setStartBtnState] = useState(true);
   const [videoBtnText, setVideoBtnText] = useState("Choose a Video Source");
   const [streams, setStreams] = useState(null);
-  const mediaRecorder = useRef({});
+  const mediaRecorder = useRef<MediaRecorder>();
   const recordedChunks = useRef([]);
 
   const refVideo = useCallback(
-    (node) => {
+    (node: null | HTMLMediaElement) => {
       if (node) node.srcObject = streams;
     },
     [streams]
   );
 
   useEffect(() => {
-    window.electronAPI.sourceSelected((value) => {
+    window.electronAPI.sourceSelected((value: DesktopCapturerSource) => {
       selectSource(value);
     });
     return () => {
@@ -25,7 +26,7 @@ export default function Main() {
     };
   });
 
-  function handleDataAvailable(e) {
+  function handleDataAvailable(e: BlobEvent) {
     recordedChunks.current.push(e.data);
   }
 
@@ -41,17 +42,17 @@ export default function Main() {
     });
     const buffer = await blob.arrayBuffer();
     recordedChunks.current = [];
-    await window.electronAPI.sendStream(buffer);
+    window.electronAPI.sendStream(buffer);
   }
 
   async function getVideoSources() {
     await window.electronAPI.videoSelectBtnClicked();
   }
 
-  async function selectSource(source) {
+  async function selectSource(source: DesktopCapturerSource) {
     setVideoBtnText(source.name);
     setStartBtnState(false);
-    const constraints = {
+    const constraints: object = {
       audio: false,
       video: {
         mandatory: {

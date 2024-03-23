@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const {
+import {
   app,
   BrowserWindow,
   desktopCapturer,
@@ -8,11 +7,13 @@ const {
   nativeImage,
   ipcMain,
   dialog,
-} = require("electron");
-const path = require("path");
+  DesktopCapturerSource,
+} from "electron";
+import path from "path";
+import { writeFile } from "fs";
 
-async function selectSource(source) {
-  await mainWindow.webContents.send("source-selected", source);
+function selectSource(source: DesktopCapturerSource) {
+  mainWindow.webContents.send("source-selected", source);
 }
 
 async function handleVideoSelection() {
@@ -20,7 +21,7 @@ async function handleVideoSelection() {
     types: ["window", "screen"],
   });
   const videoOptionsMenu = Menu.buildFromTemplate(
-    inputSources.map((source) => {
+    inputSources.map((source: DesktopCapturerSource) => {
       return {
         label: source.name,
         click: () => selectSource(source),
@@ -32,8 +33,6 @@ async function handleVideoSelection() {
 
 ipcMain.on("videoSelectBtn-clicked", handleVideoSelection);
 
-const { writeFile } = require("fs");
-
 ipcMain.on("send-stream", async (event, preBuffer) => {
   const buffer = Buffer.from(preBuffer);
 
@@ -41,14 +40,16 @@ ipcMain.on("send-stream", async (event, preBuffer) => {
     buttonLabel: "Save video",
     defaultPath: `vid-${Date.now()}.webm`,
   });
-  writeFile(filePath, buffer, () => {});
+  writeFile(filePath, buffer, (err) => {
+    if (err.errno !== -4058) console.log(err);
+  });
 });
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
-let mainWindow;
+let mainWindow: BrowserWindow;
 
 const createWindow = () => {
   // Create the browser window.
