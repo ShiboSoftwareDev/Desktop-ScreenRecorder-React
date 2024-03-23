@@ -41,7 +41,7 @@ ipcMain.on("send-stream", async (event, preBuffer) => {
     defaultPath: `vid-${Date.now()}.webm`,
   });
   writeFile(filePath, buffer, (err) => {
-    if (err.errno !== -4058) console.log(err);
+    if (err?.errno !== -4058) console.log(err);
   });
 });
 
