@@ -3,30 +3,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 
 * {
   font-family: -apple-system, BlinkMacSystemFont, "Inknut Antiqua", "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
   -webkit-app-region: no-drag;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 ::-webkit-scrollbar {
   display: none;
 }
-button {
-  font-family: -apple-system, BlinkMacSystemFont, "Inknut Antiqua", "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
-}
 
-video {
-  height: 60%;
-}
-body {
+main {
   -webkit-app-region: drag;
-  width: 100vw;
-  height: 100vh;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; */
-/* } */
+}

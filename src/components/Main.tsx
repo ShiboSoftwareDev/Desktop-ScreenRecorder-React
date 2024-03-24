@@ -1,7 +1,8 @@
 import { DesktopCapturerSource } from "electron";
 import { useState, useRef, useCallback, useEffect } from "react";
+import "../index.css";
 
-export default function Main() {
+export default function div() {
   const [startBtnText, setStartBtnText] = useState("Start");
   const [stopBtnState, setStopBtnState] = useState(true);
   const [startBtnState, setStartBtnState] = useState(true);
@@ -74,15 +75,13 @@ export default function Main() {
   }
 
   return (
-    <main>
-      <h1>Welcome to my app, sucker!</h1>
-
+    <main className="w-screen h-screen flex flex-col p-10 items-center justify-center">
+      <h1 className=" font-bold">Welcome to my app, sucker!</h1>
       <div>
-        <button id="startBtn" disabled={startBtnState} onClick={handleStart}>
+        <button disabled={startBtnState} onClick={handleStart}>
           {startBtnText}
         </button>
         <button
-          id="stopBtn"
           disabled={stopBtnState}
           onClick={() => {
             mediaRecorder.current.stop();
@@ -93,12 +92,8 @@ export default function Main() {
           Stop
         </button>
       </div>
-      <button id="videoSelectBtn" onClick={getVideoSources}>
-        {videoBtnText}
-      </button>
-
-      <video ref={refVideo} autoPlay></video>
-
+      <button onClick={getVideoSources}>{videoBtnText}</button>
+      <video ref={refVideo} autoPlay className="h-[50%] aspect-video"></video>
       <p>
         This is an app created using electronjs and vanilla javascript, it can
         still be better but at least it works. I can even sell this on any os!
