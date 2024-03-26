@@ -38,7 +38,8 @@ ipcMain.on("send-stream", async (event, preBuffer) => {
 
   const { filePath } = await dialog.showSaveDialog({
     buttonLabel: "Save video",
-    defaultPath: `vid-${Date.now()}.webm`,
+    defaultPath: `vid-${Date.now()}`,
+    filters: [{ name: "Video", extensions: ["webm"] }],
   });
   writeFile(filePath, buffer, (err) => {
     if (err?.errno !== -4058) console.log(err);
@@ -55,8 +56,8 @@ const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     frame: false,
-    width: 600,
-    height: 600,
+    width: 800,
+    height: 800,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,

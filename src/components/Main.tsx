@@ -51,7 +51,11 @@ export default function div() {
   }
 
   async function selectSource(source: DesktopCapturerSource) {
-    setVideoBtnText(source.name);
+    const vidName: string[] =
+      source.name.indexOf(" - ") > -1 ? source.name.split(" - ") : [];
+    const sourceName =
+      vidName.length > 0 ? vidName[vidName.length - 1] : source.name;
+    setVideoBtnText(sourceName);
     setStartBtnState(false);
     const constraints: object = {
       audio: false,
@@ -75,10 +79,16 @@ export default function div() {
   }
 
   return (
-    <main className="w-screen h-screen flex flex-col p-10 items-center justify-center">
-      <h1 className=" font-bold">Welcome to my app, sucker!</h1>
+    <main className="w-screen h-screen flex flex-col p-10 items-center justify-center text-blue-900">
+      <h1 className=" font-bold">{"Welcome to my app! ;)"}</h1>
       <div>
-        <button disabled={startBtnState} onClick={handleStart}>
+        <button
+          disabled={startBtnState}
+          onClick={handleStart}
+          className={`w-28 border-2 ${
+            startBtnState ? "border-blue-900" : "border-green-500"
+          } ml-1`}
+        >
           {startBtnText}
         </button>
         <button
@@ -88,16 +98,28 @@ export default function div() {
             setStartBtnText("Start");
             setStopBtnState(true);
           }}
+          className={`w-28 border-2 ${
+            stopBtnState ? "border-blue-900" : "border-red-500"
+          } ml-1`}
         >
           Stop
         </button>
       </div>
-      <button onClick={getVideoSources}>{videoBtnText}</button>
-      <video ref={refVideo} autoPlay className="h-[50%] aspect-video"></video>
+      <button
+        onClick={getVideoSources}
+        className="w-[228px] ml-1 border-2 border-blue-900 my-1 overflow-hidden"
+      >
+        {videoBtnText}
+      </button>
+      <video
+        ref={refVideo}
+        autoPlay
+        className="h-[50%] aspect-video border-t-2 border-b-2 border-blue-900"
+      ></video>
       <p>
-        This is an app created using electronjs and vanilla javascript, it can
-        still be better but at least it works. I can even sell this on any os!
-        Also check the tray icon O.o
+        {`This app was created using electronjs and vanilla javascript, now it has
+        been refactored using react and tailwind. I can even destribute this on
+        any os!`}
       </p>
     </main>
   );
